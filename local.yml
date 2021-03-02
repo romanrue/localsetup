@@ -2,6 +2,8 @@
 - hosts: localhost
   connection: local
   become: true
+  become_user: roman
+  become_method: sudo
 
   tasks:
   - debug: msg="{{ lookup('env','USER') }}"
