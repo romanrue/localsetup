@@ -9,3 +9,10 @@
       name:
       - htop
       - tmux
+
+  - name: copy file
+    copy:
+      src: files/something.txt
+      dest: /home/roman/test/ansible-something.txt
+      owner: root
+      group: root
