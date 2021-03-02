@@ -4,7 +4,7 @@
   become: true
 
   tasks:
-  - debug: msg-"{{ lookup('env','USER') }}"
+  - debug: msg="{{ lookup('env','USER') }}"
   - name: install packages
     package:
       name:
