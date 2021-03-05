@@ -1,9 +1,7 @@
 ---
-- hosts: localhost
+- name: Set up local machine
+  hosts: localhost
   connection: local
-  remote_user: roman
-  become: true
-  become_method: sudo
 
   tasks:
   - debug: msg="{{ lookup('env','USER') }}"
