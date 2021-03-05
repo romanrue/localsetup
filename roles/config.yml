@@ -1,0 +1,5 @@
+dotfiles_user_home: "{{ "${HOME}" | expanduser }}"
+
+full_name: Roman Rüttimann
+git_user: romanrue
+git_email: roman.ruettimann@gmail.com
