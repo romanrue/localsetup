@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# ------------------------------------------------------------------------------
+# Functions
+# ------------------------------------------------------------------------------
+
+# Make lower case
+#	$1:	Input string
+lower()
+{
+	echo "$1" | tr '[:upper:]' '[:lower:]'
+}
+
+# Check for substring
+#	$1:	Explicit substring
+#	$2:	Input string
+isSubstring()
+{
+	test "${2#*$1}" != "$2"
+}
+
+# ------------------------------------------------------------------------------
+# Main Script
+# ------------------------------------------------------------------------------
+
+OS=$(uname -s)
+if isSubstring "linux" "$(lower ${OS})"; then
+	DISTRO=$(grep -Po '(?<=ID=)\w*' /etc/os-release)
+	case "$(lower ${DISTRO})" in
+		"arch") . "setup/setup-arch.sh";;
+		"clear-linux-os") . "setup/setup-clear-linux-os.sh";;
+		"debian") . "setup/setup-debian.sh";;
+		"fedora") . "setup/setup-fedora.sh";;
+		#"gentoo") . "setup/setup-gentoo.sh";; #TODO
+		#"slackware") . "setup/setup-slackware.sh";; #TODO
+		"ubuntu"|"pop") . "setup/setup-ubuntu.sh";;
+		*)
+			if isSubstring "slackware" "$(lower "$(uname -n)")"; then
+				. "setup/setup/slackware.sh"
+			fi
+	esac
+
+	# WSL specific settings
+	if isSubstring "microsoft" "$(lower "$(uname -a)")"; then
+		. "setup/setup-wsl.sh"
+	fi
+fi
+
+

@@ -1,0 +1,25 @@
+---
+- name: Run tasks on localhost
+  hosts: localhost
+  connection: local
+  #vars_files:
+  #  - backuplist.yml
+
+  tasks:
+    - include_vars: backuplist.yml
+
+      #- name: show if looping through .backuplist
+      #  debug: msg="{{ item }}"
+      #  loop: "{{ lookup('file', '.backuplist').splitlines() }}"
+     
+    - name: create testfiles
+      copy:
+        dest: "{{ item }}"
+        content: "{{ item }}"
+      loop: "{{ backupfiles }}"
+
+    - name: fetch test_file
+      fetch:
+        src: "/home/{{ ansible_user }}/test_file1"
+        dest: "fetched/{{ inventory_host }}/"
+        flat: true

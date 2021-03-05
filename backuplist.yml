@@ -1,0 +1,5 @@
+---
+# List of filepaths that are backed up
+backupfiles:
+  - "/home/{{ ansible_user }}/test_file1"
+  - "/home/{{ ansible_user }}/test_file2"
